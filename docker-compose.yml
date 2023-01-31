@@ -1,0 +1,18 @@
+version: '3'
+services:
+  container:
+    image: ubuntu
+    ports:
+      - "10000-10019:22"
+    user: root
+    entrypoint:
+      - /bin/bash
+      - -c
+      - apt-get update && apt-get install -y openssh-server;
+        service ssh restart;
+        tail -f /dev/null;
+    environment:
+      ROOT_PASSWORD: student
+    command: bash -c "/usr/sbin/sshd -D"
+    deploy:
+      replicas: 20
